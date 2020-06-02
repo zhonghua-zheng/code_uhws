@@ -1,0 +1,30 @@
+channels:
+- conda-forge
+- defaults
+
+dependencies:
+- python=3.6.7
+- awscli
+- basemap
+- bokeh
+- cartopy
+- cython
+- descartes
+- geopandas
+- jupyterlab
+- ipykernel
+- matplotlib
+- netCDF4
+- pandas
+- pip
+- python-graphviz
+- s3fs
+- seaborn
+- scikit-learn
+- tqdm
+- xarray
+- xesmf
+- zarr
+- pip:
+  - xgboost==0.90
+name: uhws
