@@ -1,6 +1,6 @@
 Urban Heat Waves Projection
 ===========================
-
+[![DOI](https://zenodo.org/badge/268670529.svg)](https://zenodo.org/badge/latestdoi/268670529)
 
 <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 
