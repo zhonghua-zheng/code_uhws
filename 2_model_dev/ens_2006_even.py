@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 def load_df_max_TREFHT(member, start_date, end_date):
     print("***************Start loading data***************")
     t0 = time.time()
-    df = pd.read_csv("/glade/scratch/zhonghua/urban_XGB/ensem_data/"+start_date+".csv")
+    df = pd.read_csv("/glade/scratch/zhonghua/ensem_training_data/"+start_date+".csv")
     elapsed_time = time.time() - t0
     print("It takes elapsed_time", elapsed_time, "to read csv")
     print("***************Start convert lat/lon to string***************")
@@ -34,7 +34,7 @@ def load_df_max_TREFHT(member, start_date, end_date):
     return df
 
 # XGB model 
-def XGB_train(df,year,learning_rate,max_depth,n_estimators,lat,lon,member):
+def XGB_train(df,year,lat,lon,member):
     
     t_0=time.time()
     #df_temp = df[(df["lat"]==lat) & (df["lon"]==lon)].reset_index()
@@ -53,33 +53,33 @@ def XGB_train(df,year,learning_rate,max_depth,n_estimators,lat,lon,member):
     pred="TREFMXAV_U"
 
     XGBreg = XGBRegressor(objective ='reg:squarederror',n_jobs=-1,
-                          learning_rate=learning_rate,
-                          max_depth=max_depth,
-                          n_estimators=n_estimators,
+                          learning_rate=0.08796346103242554,
+                          max_depth=6,
+                          n_estimators=576,
                           seed=66)
     XGBreg.fit(df_temp[vari_ls], df_temp[pred])
     elapsed_time = time.time() - t_0
     
     print("It takes elapsed_time", elapsed_time, "to train the model")
-    pickle.dump(XGBreg, open("/glade/scratch/zhonghua/UrbanHWs/ensem_model/"+year+"/"+"MX_"+lat+"_"+lon+".dat","wb"))
+    pickle.dump(XGBreg, open("/glade/scratch/zhonghua/ensem_model/"+year+"/"+"MX_"+lat+"_"+lon+".dat","wb"))
     
     return XGBreg
 
 # load the dictionary
-lat_lon_dict=pickle.load(open("/glade/scratch/zhonghua/urban_XGB/lat_lon_dict.dat","rb"))
-lat_ls_load=pickle.load(open("/glade/scratch/zhonghua/urban_XGB/lat_ls.dat","rb"))
+lat_lon_dict=pickle.load(open("/glade/scratch/zhonghua/lat_lon_dict.dat","rb"))
+lat_ls_load=pickle.load(open("/glade/scratch/zhonghua/lat_ls.dat","rb"))
 
 # start the ml
 member = "002"; start_date = "2006"; end_date = "2015"
 df_002 = load_df_max_TREFHT(member, start_date, end_date)
 
-df=df_002;year="2006";learning_rate=0.05;max_depth=6;n_estimators=500;member="002"
+df=df_002;year="2006";member="002"
 
 i=1
 for lat in lat_ls_load[1::2]:
     print(lat)
     for lon in lat_lon_dict[lat]:
-        XGB_train(df,year,learning_rate,max_depth,n_estimators,lat,lon,member)
+        XGB_train(df,year,lat,lon,member)
         i+=1
         if (i%10==0):
             print(i)

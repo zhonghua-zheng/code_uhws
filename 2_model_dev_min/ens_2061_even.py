@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 def load_df_max_TREFHT(member, start_date, end_date):
     print("***************Start loading data***************")
     t0 = time.time()
-    df = pd.read_csv("/glade/scratch/zhonghua/ensem_training_data/"+start_date+".csv")
+    df = pd.read_csv("/glade/scratch/zhonghua/ensem_training_data_min/"+start_date+".csv")
     elapsed_time = time.time() - t0
     print("It takes elapsed_time", elapsed_time, "to read csv")
     print("***************Start convert lat/lon to string***************")
@@ -50,7 +50,7 @@ def XGB_train(df,year,lat,lon,member):
                "July", "Aug", "Sept", 
                "Oct", "Nov", "Dec"]
     
-    pred="TREFMXAV_U"
+    pred="TREFMNAV_U"
 
     XGBreg = XGBRegressor(objective ='reg:squarederror',n_jobs=-1,
                           learning_rate=0.08796346103242554,
@@ -61,7 +61,7 @@ def XGB_train(df,year,lat,lon,member):
     elapsed_time = time.time() - t_0
     
     print("It takes elapsed_time", elapsed_time, "to train the model")
-    pickle.dump(XGBreg, open("/glade/scratch/zhonghua/ensem_model/"+year+"/"+"MX_"+lat+"_"+lon+".dat","wb"))
+    pickle.dump(XGBreg, open("/glade/scratch/zhonghua/ensem_model_min/"+year+"/"+"MX_"+lat+"_"+lon+".dat","wb"))
     
     return XGBreg
 
