@@ -1,0 +1,23 @@
+#!/bin/bash
+### Job Name
+#PBS -N ACCESS1-0
+### Project code
+#PBS -A UIUC0021
+#PBS -l walltime=06:00:00
+#PBS -q regular
+### Merge output and error files
+#PBS -j oe
+### Select 1 nodes with 1 CPUs 
+#PBS -l select=1:ncpus=1
+### Send email on abort, begin and end
+#PBS -m abe
+### Specify mail recipient
+#PBS -M zzheng25@illinois.edu
+
+export TMPDIR=/glade/scratch/$USER/temp
+mkdir -p $TMPDIR
+
+### Run the executable
+source /glade/work/$USER/personal_clone_name/bin/activate
+python apply_model_CMIP.py "ACCESS1-0" "2006" 
+python apply_model_CMIP.py "ACCESS1-0" "2061" 

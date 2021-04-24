@@ -9,7 +9,7 @@ import sys
 
 # load dataframe with maximal temp
 def load_df_CMIP(model_name, start_date):
-    path = "/glade/scratch/zhonghua/CMIP5-process/"
+    path = "/glade/scratch/zhonghua/CMIP5-RCP85_csv/"
     print("***************Start loading",model_name,"***************")
     t0 = time.time()
     df = pd.read_csv(path+model_name+"/"+start_date+".csv")
@@ -47,7 +47,7 @@ def XGB_apply(df,start_date,lat,lon,model_name):
                "July", "Aug", "Sept", 
                "Oct", "Nov", "Dec"]
     
-    XGBreg = pickle.load(open("/glade/scratch/zhonghua/UrbanHWs/ensem_model/"+start_date+"/"+"MX_"+lat+"_"+lon+".dat","rb"))
+    XGBreg = pickle.load(open("/glade/scratch/zhonghua/ensem_model/"+start_date+"/"+"MX_"+lat+"_"+lon+".dat","rb"))
     df_temp[model_name]=XGBreg.predict(df_temp[vari_ls])
     elapsed_time = time.time() - t_0
     print("It takes elapsed_time", elapsed_time, "to apply the model")
@@ -59,7 +59,7 @@ def XGB_apply(df,start_date,lat,lon,model_name):
 
 
 #########################################################
-lat_lon_dict=pickle.load(open("/glade/scratch/zhonghua/urban_XGB/lat_lon_dict.dat","rb"))
+lat_lon_dict=pickle.load(open("/glade/scratch/zhonghua/lat_lon_dict.dat","rb"))
 
 model_name=sys.argv[1]
 start_date=sys.argv[2]
@@ -75,4 +75,4 @@ for lat in lat_lon_dict:
         i+=1
         if (i%10==0):
             print(i)
-pd.concat(df_final_ls).to_csv("/glade/scratch/zhonghua/UrbanHWs/CMIP_"+start_date+"/"+model_name+".csv")
+pd.concat(df_final_ls).to_csv("/glade/scratch/zhonghua/CMIP5_pred/"+start_date+"/"+model_name+".csv")

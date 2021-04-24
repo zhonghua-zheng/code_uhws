@@ -10,7 +10,7 @@ from xgboost import XGBRegressor
 
 # load dataframe with maximal temp
 def load_df_max_TREFHT(member, start_date, end_date):
-    path = "/glade/scratch/zhonghua/CESM-LE-members-csv/"
+    path = "/glade/scratch/zhonghua/CESM-LE-members-csv-min/"
     print("***************Start loading member",member,"***************")
     t0 = time.time()
     df = pd.read_csv(path+member+"_"+start_date+"_"+end_date+".csv")
@@ -49,12 +49,12 @@ def XGB_test(df,year,lat,lon,member):
                "Oct", "Nov", "Dec"]
    
 
-    XGBreg = pickle.load(open("/glade/scratch/zhonghua/ensem_model/"+year+"/"+"MX_"+lat+"_"+lon+".dat","rb"))
+    XGBreg = pickle.load(open("/glade/scratch/zhonghua/ensem_model_min/"+year+"/"+"MX_"+lat+"_"+lon+".dat","rb"))
     df_temp[member]=XGBreg.predict(df_temp[vari_ls])
     
     #print("rmse:",np.sqrt(mean_squared_error(df_temp[member],df_temp[pred])))
     #print("mae:",mean_absolute_error(df_temp[member],df_temp[pred]))
-    df_return=df_temp[["lat","lon","time",member,"TREFMXAV_U"]]
+    df_return=df_temp[["lat","lon","time",member,"TREFMNAV_U"]]
     df_return[["lat","lon"]]=df_return[["lat","lon"]].astype(np.float32)
     
     elapsed_time = time.time() - t_0
@@ -81,4 +81,4 @@ for lat in lat_lon_dict:
         i+=1
         if (i%10==0):
             print(i)
-pd.concat(df_final_ls).to_csv("/glade/scratch/zhonghua/CESM_validation/"+start_date+"/"+member+"_ens.csv")
+pd.concat(df_final_ls).to_csv("/glade/scratch/zhonghua/CESM_validation_min/"+start_date+"/"+member+"_ens.csv")
