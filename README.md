@@ -113,6 +113,7 @@ conda activate uhws
 ## Acknowledgments
 
 - We would like to acknowledge high-performance computing support from Cheyenne ([doi:10.5065/D6RX99HX](https://doi.org/10.5065/D6RX99HX)) provided by NCAR's Computational and Information Systems Laboratory, sponsored by the National Science Foundation.
-- The CESM project is supported primarily by the National Science Foundation (NSF). 
-
-- We thank AWS for providing AWS Cloud Credits for Research.
+- The CESM project is supported primarily by the National Science Foundation (NSF).   
+- This work is based upon material supported by the NCAR, which is a major facility sponsored by the NSF under Cooperative Agreement No. 1852977.   
+- We thank AWS for providing AWS Cloud Credits for Research.   
+- L.Z. acknowledges the financial support from the Start-up Grant from University of Illinois, Urbana-Champaign.
