@@ -2,7 +2,7 @@
 ### Job Name
 #PBS -N ens_2061_even
 ### Project code
-#PBS -A UIUC0021
+#PBS -A your_project
 #PBS -l walltime=12:00:00
 #PBS -q regular
 ### Merge output and error files
@@ -12,7 +12,7 @@
 ### Send email on abort, begin and end
 #PBS -m abe
 ### Specify mail recipient
-#PBS -M zzheng25@illinois.edu
+#PBS -M your_email@illinois.edu
 
 export TMPDIR=/glade/scratch/$USER/temp
 mkdir -p $TMPDIR

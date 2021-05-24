@@ -35,7 +35,6 @@ def load_df_max_TREFHT(member, start_date, end_date):
 
 # XGB model 
 def XGB_train(df,year,lat,lon,member):
-    
     t_0=time.time()
     #df_temp = df[(df["lat"]==lat) & (df["lon"]==lon)].reset_index()
     df_lat = df[df["lat"]==lat]
